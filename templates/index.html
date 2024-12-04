@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+    <h1>Hack Club Events</h1>
+    {% for event in events %}
+        {% if event.Approved %}
+        <div class="event">
+            <h2><a href='/{{event.Title}}'>{{ event.Title }}</a></h2>
+            <div class="leader">
+                <img src="{{ event.Avatar }}" alt="{{ event.Leader }} profile picture" />
+                <h4>{{ event.Leader }}</h4>
+            </div>
+            <p>
+                {{ event.Description }}
+            </p>
+            <small class="start">
+                {{event['Start Time']}}
+            </small>
+        </div>
+        {% endif %}
+    {% endfor %}
+    <script>
+        var start_times = document.querySelectorAll('.start');
+        start_times.forEach(function(time) {
+            var date = new Date(time.innerText);
+            time.innerText = date.toLocaleString();
+        });
+    </script>
+</body>
+</html>
